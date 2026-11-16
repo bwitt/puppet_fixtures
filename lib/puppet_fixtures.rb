@@ -536,7 +536,7 @@ module PuppetFixtures
         command = %w[git clone]
         command.push('--depth', '1') unless @ref
         command.push('-b', @branch) if @branch
-        command.push(flags) if flags
+        command.concat(flags) if flags
         command.push(@remote, @target)
 
         run_command(command)
@@ -580,7 +580,7 @@ module PuppetFixtures
       def clone(flags = nil)
         command = %w[hg clone]
         command.push('-b', @branch) if @branch
-        command.push(flags) if flags
+        command.concat(flags) if flags
         command.push(@remote, @target)
 
         run_command(command)
