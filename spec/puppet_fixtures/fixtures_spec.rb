@@ -73,6 +73,12 @@ describe PuppetFixtures::Fixtures do
     subject(:symlinks) { instance.symlinks }
 
     it { is_expected.to eq({}) }
+
+    context 'with metadata.json without a name' do
+      before { File.write(File.join(source_dir, 'metadata.json'), JSON.generate('version' => '1.0.0')) }
+
+      it { is_expected.to eq({}) }
+    end
   end
 
   describe '#gem_version' do

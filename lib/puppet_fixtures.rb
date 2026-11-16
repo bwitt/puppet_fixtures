@@ -391,7 +391,7 @@ module PuppetFixtures
     # @return [String[1]] The module name
     def name
       n = @metadata['name']
-      raise ArgumentError 'No module name found' if !n || n.empty?
+      raise ArgumentError, 'No module name found' if !n || n.empty?
 
       n
     end
@@ -399,7 +399,7 @@ module PuppetFixtures
     # @return [String[1]] The module version
     def version
       v = @metadata['version']
-      raise ArgumentError 'No module name found' if !v || v.empty?
+      raise ArgumentError, 'No module version found' if !v || v.empty?
 
       v
     end
