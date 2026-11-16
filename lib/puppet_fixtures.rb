@@ -107,7 +107,7 @@ module PuppetFixtures
                                 defaults
                               end
 
-          entries = categories[category].to_h do |fixture, opts|
+          entries = categories[category].filter_map do |fixture, opts|
             # convert a simple string fixture to a hash, by
             # using the string fixture as the `repo` option of the hash.
             opts = { 'repo' => opts } if opts.instance_of?(String)
@@ -139,7 +139,7 @@ module PuppetFixtures
             end
 
             [opts['repo'], entry]
-          end
+          end.to_h
 
           [category, entries]
         end

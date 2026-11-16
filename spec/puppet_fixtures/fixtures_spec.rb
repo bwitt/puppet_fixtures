@@ -67,6 +67,28 @@ describe PuppetFixtures::Fixtures do
     subject(:repositories) { instance.repositories }
 
     it { is_expected.to eq({}) }
+
+    context 'with skipped entries' do
+      around do |example|
+        Dir.chdir(source_dir) { example.run }
+      end
+
+      before do
+        fixtures = {
+          'fixtures' => {
+            'repositories' => {
+              'old' => { 'repo' => 'https://example.com/old.git', 'puppet_version' => '< 6.0.0' },
+              'invalid' => nil,
+              'keep' => 'https://example.com/keep.git',
+            },
+          },
+        }
+        File.write(File.join(source_dir, '.fixtures.yml'), fixtures.to_yaml)
+        allow(instance).to receive(:gem_version).with('openvox').and_return('8.0.0')
+      end
+
+      it { expect(repositories.keys).to eq(['https://example.com/keep.git']) }
+    end
   end
 
   describe '#symlinks' do
