@@ -587,7 +587,7 @@ module PuppetFixtures
       end
 
       def update
-        run_command(%w[hg pull])
+        run_command(%w[hg pull], chdir: @target)
       end
 
       def revision
